@@ -234,11 +234,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
+			g.drawString(String.valueOf(playerOneScore), 100, 100);			// Player 1
 																	// score
+						g.setFont(new Font(Font.DIALOG, Font.BOLD, 26));
+
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
-
+			g.drawString("Press Spacebar to restart game",50,400);
 			// draw the ball
 			g.setColor(Color.RED);
 			g.fillOval(ballX, ballY, diameter, diameter);
