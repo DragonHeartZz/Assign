@@ -128,6 +128,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
 				ballDeltaY *= -1;
+				
 			}
 			// will the ball go off the left side?
 			if (nextBallLeft < playerOneRight) {
@@ -146,6 +147,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
+					Sound.play("./sound/H.wav");
 				}
 			}
 			// will the ball go off the right side?
@@ -165,6 +167,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
+					Sound.play("./sound/H.wav");
 				}
 			}
 			// move the ball
@@ -186,6 +189,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawString("Press 'P' to play.", 135, 300);
+			Sound.play("./sound/Begin.wav");
 		} else if (playing) {
 			/* Game is playing */
 			// set the coordinate limit
@@ -217,6 +221,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			/* Show End game screen with winner name and score */
 			// Draw scores
 			// TODO Set Blue color
+			Sound.play("./sound/Begin.wav");
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
