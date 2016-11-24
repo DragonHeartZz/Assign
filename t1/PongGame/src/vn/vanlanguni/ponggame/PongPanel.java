@@ -136,6 +136,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				if (nextBallTop > playerOneBottom
 						|| nextBallBottom < playerOneTop) {
 					playerTwoScore++;
+					Sound.play("sound/Hit2.wav");
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
 						playing = false;
@@ -147,7 +148,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					Sound.play("./sound/H.wav");
+					Sound.play("sound/Hit1.wav");
 				}
 			}
 			// will the ball go off the right side?
@@ -156,6 +157,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				if (nextBallTop > playerTwoBottom
 						|| nextBallBottom < playerTwoTop) {
 					playerOneScore++;
+					Sound.play("sound/Hit2.wav");
 					// Player 1 Win, restart the game
 					if (playerOneScore == 3) {
 						playing = false;
@@ -167,7 +169,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					Sound.play("./sound/H.wav");
+					Sound.play("sound/Hit1.wav");
 				}
 			}
 			// move the ball
@@ -189,7 +191,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawString("Press 'P' to play.", 135, 300);
-			Sound.play("./sound/Begin.wav");
+			
 		} else if (playing) {
 			/* Game is playing */
 			// set the coordinate limit
@@ -221,7 +223,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			/* Show End game screen with winner name and score */
 			// Draw scores
 			// TODO Set Blue color
-			Sound.play("./sound/Begin.wav");
+			
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
