@@ -136,9 +136,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				if (nextBallTop > playerOneBottom
 						|| nextBallBottom < playerOneTop) {
 					playerTwoScore++;
-					Sound.play("sound/Hit2.wav");
+					Sound.play("sound/Wall.wav");
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
+						Sound.play("sound/End.wav");
 						playing = false;
 						gameOver = true;
 					}
@@ -148,7 +149,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					Sound.play("sound/Hit1.wav");
+					Sound.play("sound/Hit.wav");
 				}
 			}
 			// will the ball go off the right side?
@@ -157,9 +158,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				if (nextBallTop > playerTwoBottom
 						|| nextBallBottom < playerTwoTop) {
 					playerOneScore++;
-					Sound.play("sound/Hit2.wav");
+					Sound.play("sound/Wall.wav");
+					
 					// Player 1 Win, restart the game
 					if (playerOneScore == 3) {
+						Sound.play("sound/End.wav");
 						playing = false;
 						gameOver = true;
 					}
@@ -169,7 +172,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					Sound.play("sound/Hit1.wav");
+					Sound.play("sound/Hit.wav");
 				}
 			}
 			// move the ball
@@ -249,6 +252,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			if (e.getKeyChar() == 'p') {
 				showTitleScreen = false;
 				playing = true;
+				Sound.play("sound/Start.wav");
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
