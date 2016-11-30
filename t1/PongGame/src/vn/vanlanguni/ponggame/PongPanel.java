@@ -21,19 +21,30 @@ package vn.vanlanguni.ponggame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 
 /**
  * 
  * @author Invisible Man
  * 
  */
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = -1097341635155021546L;
 	private boolean showTitleScreen = true;
 	private boolean playing;
@@ -67,6 +78,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneScore;
 	private int playerTwoScore;
 
+	//setting rectangle
+	Rectangle rectSetting;
+	BufferedImage imgSetting,imgSettingUp;
+	private int xSetting = 135, ySetting = 330, wSetting = 200, hSetting = 35;
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
@@ -76,6 +91,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
+		//setting 
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		
+		rectSetting = new Rectangle(xSetting,ySetting,wSetting,hSetting);
+		try {
+			imgSetting = ImageIO.read(new File("images/blue-button-setting.png"));
+			imgSettingUp = ImageIO.read(new File("images/pink-button-setting.png"));
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
 	}
 
 	/** Implement actionPerformed */
@@ -194,7 +221,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawString("Press 'P' to play.", 135, 300);
-			
+			if(!showSetting){
+				g.drawImage(imgSetting, xSetting, ySetting, xSetting + wSetting, ySetting + hSetting, 0, 0, 600, 230, null);
+			}
+			else{
+				g.drawImage(imgSettingUp, xSetting, ySetting, xSetting + wSetting, ySetting + hSetting, 0, 0, 600, 230, null);
+			}
 		} else if (playing) {
 			/* Game is playing */
 			// set the coordinate limit
@@ -287,4 +319,36 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			sPressed = false;
 		}
 	}
+
+	boolean showSetting = false;
+
+	public void mouseMoved(MouseEvent e) {
+		//System.out.println(String.format("%d %d", e.getX(),e.getY()));
+		if(rectSetting.contains(e.getX(),e.getY())){
+			showSetting = true;
+		}
+		else{
+			showSetting = false;
+		}
+	}
+
+	public void mouseDragged(MouseEvent e) { }
+	JDialogSettings settingsDialog;
+	public void mouseClicked(MouseEvent e) { 
+		if(showSetting){
+			settingsDialog = new JDialogSettings();
+			settingsDialog.setModal(true);
+			settingsDialog.setVisible(true);
+			
+			settingsDialog.dispose();
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) { }
+
+	public void mouseExited(MouseEvent e) { }
+
+	public void mousePressed(MouseEvent e) { }
+
+	public void mouseReleased(MouseEvent e) { }
 }
