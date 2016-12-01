@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -256,8 +257,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.setColor(Color.RED);
 			g.fillOval(ballX, ballY, diameter, diameter);
 			// draw the paddles
-			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
-			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
+			ImageIcon paddle1 = new ImageIcon("images/paddles1.png");
+			g.drawImage(paddle1.getImage(),playerOneX, playerOneY, playerOneWidth, playerOneHeight,null);
+			ImageIcon paddle2 = new ImageIcon("images/paddles2.png");
+			g.drawImage(paddle2.getImage(),playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight,null);
 		} else if (gameOver) {
 			/* Show End game screen with winner name and score */
 			// Draw scores
