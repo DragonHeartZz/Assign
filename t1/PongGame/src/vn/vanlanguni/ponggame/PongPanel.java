@@ -81,6 +81,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Name user 1 and name user 2 */
 	String cNameplayer1 = "Player one";
 	String cNameplayer2 = "Player two";
+	int cball;
 	//setting rectangle
 	Rectangle rectSetting;
 	BufferedImage imgSetting,imgSettingUp;
@@ -252,10 +253,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawString(cNameplayer2, 330, 50);
 			g.drawString(String.valueOf(playerTwoScore), 350, 100); // Player 2
 			// score
-			
+		
 			// draw the ball
-			g.setColor(Color.RED);
-			g.fillOval(ballX, ballY, diameter, diameter);
+						if (cball == 1) {
+							ImageIcon imgball = new ImageIcon("./images/Ball1.png");
+							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+						} else if (cball == 2) {
+							ImageIcon imgball = new ImageIcon("./images/Ball2.png");
+							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+						} else if (cball == 3) {
+							ImageIcon imgball = new ImageIcon("./images/Ball3.png");
+							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+						}else {
+							g.setColor(Color.RED);
+							g.fillOval(ballX, ballY, 20, 20);
+						}
 			// draw the paddles
 			ImageIcon paddle1 = new ImageIcon("images/paddles1.png");
 			g.drawImage(paddle1.getImage(),playerOneX, playerOneY, playerOneWidth, playerOneHeight,null);
@@ -349,6 +361,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			Setting st = settingsDialog.getSetings();
 			cNameplayer1 = st.getUserName1();
 			cNameplayer2 = st.getUserName2();
+			cball = st.getBallNumber();
 			settingsDialog.dispose();
 		}
 	}
