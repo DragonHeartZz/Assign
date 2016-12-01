@@ -82,31 +82,16 @@ public class JDialogSettings extends JDialog {
 			int result = JOptionPane.showConfirmDialog(JDialogSettings.this, "Exit?");
 			if(result == JOptionPane.YES_OPTION){
 				setVisible(false);
-			}				
+			 }				
 		}
 	});
 }
 
-public JDialogSettings getSetings(){
-	JDialogSettings st = new JDialogSettings();
+public Setting  getSetings(){
+	Setting st = new Setting();
 	st.setUserName1(txtUsername1.getText());
-	st.setUserName2(txtUsername2.getText());		
+	st.setUserName2(txtUsername2.getText());
 	return st;
+	
 }
-
-	public String getUserName2() {
-		return userName2;
-	}
-
-	public void setUserName2(String userName2) {
-		this.userName2 = userName2;
-	}
-
-	public String getUserName1() {
-		return userName1;
-	}
-
-	public void setUserName1(String uname) {
-		userName1 = uname;
-	}
 }

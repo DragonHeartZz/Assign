@@ -77,7 +77,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
-
+	/** Name user 1 and name user 2 */
+	String cNameplayer1 = "Player one";
+	String cNameplayer2 = "Player two";
 	//setting rectangle
 	Rectangle rectSetting;
 	BufferedImage imgSetting,imgSettingUp;
@@ -242,10 +244,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.drawString(cNameplayer1, 80, 50);
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 			// score
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
+			g.drawString(cNameplayer2, 330, 50);
+			g.drawString(String.valueOf(playerTwoScore), 350, 100); // Player 2
 			// score
 			
 			// draw the ball
@@ -339,7 +343,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			settingsDialog = new JDialogSettings();
 			settingsDialog.setModal(true);
 			settingsDialog.setVisible(true);
-			
+			Setting st = settingsDialog.getSetings();
+			cNameplayer1 = st.getUserName1();
+			cNameplayer2 = st.getUserName2();
 			settingsDialog.dispose();
 		}
 	}
