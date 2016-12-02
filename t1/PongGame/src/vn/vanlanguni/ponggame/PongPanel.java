@@ -60,7 +60,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** The ball: position, diameter */
 	private int ballX = 200;
 	private int ballY = 200;
-	private int diameter = 20;
+	private int diameter = 25;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	/** Player 1's paddle: position and size */
@@ -85,7 +85,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	//setting rectangle
 	Rectangle rectSetting;
 	BufferedImage imgSetting,imgSettingUp;
-	private int xSetting = 135, ySetting = 330, wSetting = 200, hSetting = 35;
+	private int xSetting = 150, ySetting = 430, wSetting = 200, hSetting = 35;
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
@@ -159,7 +159,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
 				ballDeltaY *= -1;
-				
+				Sound.play("sound/Hit.wav");
 			}
 			// will the ball go off the left side?
 			if (nextBallLeft < playerOneRight) {
@@ -220,11 +220,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 		if (showTitleScreen) {
 			/* Show welcome screen */
 			// Draw game title and start message
+			ImageIcon BG1 = new ImageIcon("images/BGwel.png");
+			g.drawImage(BG1.getImage(), 0, 0, 500, 500, null);
+			g.setColor(Color.ORANGE);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
-			g.drawString("Pong Game", 130, 150);
+			g.drawString("Pong Game", 140, 70);
 			// FIXME Wellcome message below show smaller than game title
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
-			g.drawString("Press 'P' to play.", 135, 300);
+			g.setColor(Color.red);
+			g.drawString("Press 'P' to play", 155, 400);
 			if(!showSetting){
 				g.drawImage(imgSetting, xSetting, ySetting, xSetting + wSetting, ySetting + hSetting, 0, 0, 600, 230, null);
 			}
@@ -233,11 +237,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 		} else if (playing) {
 			/* Game is playing */
+			ImageIcon BG2 = new ImageIcon("images/BGplay.png");
+			g.drawImage(BG2.getImage(), 0, 0, 500, 500, null);
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerTwoLeft = playerTwoX;
 			// draw dashed line down center
-			g.setColor(Color.GREEN);
+			g.setColor(Color.RED);
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
 				g.drawLine(250, lineY, 250, lineY + 25);
 			}
@@ -245,50 +251,57 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 			// draw the scores
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.setColor(Color.CYAN);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawString(cNameplayer1, 80, 50);
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 			// score
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.setColor(Color.MAGENTA);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawString(cNameplayer2, 330, 50);
 			g.drawString(String.valueOf(playerTwoScore), 350, 100); // Player 2
 			// score
-		
+			
+			
+
 			// draw the ball
-						if (cball == 1) {
-							ImageIcon imgball = new ImageIcon("./images/Ball1.png");
-							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
-						} else if (cball == 2) {
-							ImageIcon imgball = new ImageIcon("./images/Ball2.png");
-							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
-						} else if (cball == 3) {
-							ImageIcon imgball = new ImageIcon("./images/Ball3.png");
-							g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
-						}else {
-							g.setColor(Color.RED);
-							g.fillOval(ballX, ballY, 20, 20);
-						}
-			// draw the paddles
+			if (cball == 1) {
+				ImageIcon imgball = new ImageIcon("./images/Ball1.png");
+				g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+			} else if (cball == 2) {
+				ImageIcon imgball = new ImageIcon("./images/Ball2.png");
+				g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+			} else if (cball == 3) {
+				ImageIcon imgball = new ImageIcon("./images/Ball3.png");
+				g.drawImage(imgball.getImage(), ballX, ballY, diameter, diameter, null);
+			}else {
+				g.setColor(Color.RED);
+				g.fillOval(ballX, ballY, 20, 20);
+			}
+			// draw the paddles.
 			ImageIcon paddle1 = new ImageIcon("images/paddles1.png");
 			g.drawImage(paddle1.getImage(),playerOneX, playerOneY, playerOneWidth, playerOneHeight,null);
 			ImageIcon paddle2 = new ImageIcon("images/paddles2.png");
 			g.drawImage(paddle2.getImage(),playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight,null);
 		} else if (gameOver) {
 			/* Show End game screen with winner name and score */
+			ImageIcon imgball = new ImageIcon("./images/End.gif");
+			g.drawImage(imgball.getImage(), 0, 0, 500, 500, null);
 			// Draw scores
-			// TODO Set Blue color
-			
+			g.setColor(Color.RED);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
 			// Draw the winner name
+			g.setColor(Color.RED);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				g.drawString("Player 1 Wins!", 130, 200);
+				g.drawString(cNameplayer1 + " win!", 130, 200);
 			} else {
-				g.drawString("Player 2 Wins!", 130, 200);
+				g.drawString(cNameplayer2 + " win!", 130, 200);
 			}
 			// Draw Restart message
+			g.setColor(Color.MAGENTA);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
 			g.drawString("Press 'Spacebar' to restart ", 140, 400);
 			// TODO Draw a restart message
